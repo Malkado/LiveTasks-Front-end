@@ -1,0 +1,37 @@
+.sigin-container {
+    width: 100%;
+    max-width: 1200px;
+    height: 100vh;
+    margin: 0 auto;
+  
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+  
+  .sigin-container .info img {
+    width: 100%;
+    /* max-width: 500px; */
+
+    margin-left: -18.5%;
+    margin-right: 1%;
+  }
+  .sigin-container section {
+    width: 100%;
+    max-width: 400px;
+    margin-left: -15%;
+    padding: 10px;
+  }
+  
+  .sigin-container section h1 {
+    
+    margin-top: -20%;
+    margin-bottom: 2%;
+    font-size: 20px;
+    width: 100%;
+  }
+   .sigin-container section.form .input{
+    
+    margin-top: 10%;
+  } 
+  
