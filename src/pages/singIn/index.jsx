@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { FiLogIn } from 'react-icons/fi';
 
 import imagem from '../../assets/image.svg';
@@ -7,6 +7,11 @@ import imagem from '../../assets/image.svg';
 
 import './styles.css';
 export default function SigIn() {
+
+    const history = useHistory();
+    function login() {
+        history.push('/dashboard');
+    }
     return (
         <div className="sigin-container">
             <div className="info">
@@ -22,7 +27,7 @@ export default function SigIn() {
                     <input type="text" placeholder="Senha" />
 
 
-                    <button className="button" type="submit">Entrar</button>
+                    <button className="button" type="submit" onClick={login}>Entrar</button>
                     <Link
                         to="/cadastro"
                         className="back-link">
