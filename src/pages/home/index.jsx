@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import Cookies from 'universal-cookie';
+import React from 'react';
 
 import { Link, useHistory } from 'react-router-dom';
 import { FiLogIn } from 'react-icons/fi';
@@ -9,16 +8,7 @@ import './styles.css';
 import imagem from '../../assets/image.svg'
 
 export default function Home() {
-    const cookie = new Cookies();
-    var history = useHistory();
-    useEffect(() => {
-        const Token = cookie.get('Token');
-        if (Token !== undefined) {
-            setInterval(history.push('/dasboard'), 1500);
-        }
-    });
-
-
+    const history = useHistory();
 
 
     function sigoutPage() {

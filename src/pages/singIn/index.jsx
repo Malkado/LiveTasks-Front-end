@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { FiLogIn } from 'react-icons/fi';
 import imagem from '../../assets/image.svg';
@@ -18,12 +18,7 @@ export default function SigIn() {
     const cookies = new Cookies();
     const history = useHistory();
 
-    useEffect(() => {
-        const Token = cookies.get('Token');
-        if (Token !== undefined) {
-            setInterval(history.push('/dasboard'), 3500);
-        }
-    });
+
     async function login(e) {
         e.preventDefault();
         const data = {
@@ -42,6 +37,8 @@ export default function SigIn() {
                         timer: 2000
                     }).then(value => {
                         cookies.set('Token', res.data.Token, { path: '/' });
+                        cookies.set('Id', res.data.Id, { path: '/' });
+                        cookies.set('Name', res.data.Name, { path: '/' });
                         history.push('/dashboard')
 
                     })

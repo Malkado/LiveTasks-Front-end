@@ -1,0 +1,43 @@
+.dashboard-container header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    box-shadow: inset 0 0 1em rgba(155, 155, 155, 0.137),0 0 1em rgba(75, 75, 75, 0.589);
+    padding-left: 10%;
+    padding-right: 5%;
+
+
+}
+
+/* .dashboard-container header span {
+    font-size: 20px;
+    margin-left: 24px;
+} */
+
+.dashboard-container header img {
+    height: 50px;
+    margin: 0;  
+    margin-right: 1%;
+    position: relative;
+}
+
+.dashboard-container header a {
+    width: 260px;
+    margin-top: 0;
+    margin-left: 1%;
+}
+
+/* .dashboard-container header button {
+    height: 60px;
+    width: 60px;
+    border-radius: 4px;
+    border: 1px solid #dcdce6;
+    background: transparent;
+    margin-left: 16px;
+    transition: border-color 0.2s;
+}
+
+.dashboard-container header button:hover {
+    border-color: #999;
+} */
