@@ -52,7 +52,11 @@ export default function Dashboard() {
         }
         api.post('task/listTask.php', data, config)
             .then(res => {
-                setListTask(res.data.results.data);
+                if (res.data.results.data) {
+                    setListTask(res.data.results.data);
+                } else {
+                    setListTask([]);
+                }
             });
     }, [id]);
 
@@ -314,14 +318,119 @@ export default function Dashboard() {
     }
     function updateUser() {
 
+        const data = {
+            'idUser': id,
+            'name': profileName,
+            'email': profileEmail,
+            'pass': profilePass
+        };
+        const config = {
+            headers: {
+                Token: cookie.get('Token')
+            }
+        }
+        Swal.fire({
+            title: 'Deseja mesmo atualizar os dados da sua conta? ',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sim',
+            cancelButtonText: 'Cancelar',
+        }).then((result) => {
+            if (result.value) {
+                try {
+                    api.put('user/updateUser.php', data, config)
+                        .then(res => {
+                            if (res.status === 200) {
+                                Swal.fire({
+                                    position: 'center',
+                                    icon: 'success',
+                                    title: 'Dados atualizados com sucesso!',
+                                    showConfirmButton: false,
+                                    timer: 2000
+                                });
+                                setShow(true)
 
 
+                            } else {
+                                Swal.fire({
+                                    position: 'center',
+                                    icon: 'error',
+                                    title: 'Erro ao tentar atualizar os dados  da conta.',
+                                    showConfirmButton: false,
+                                    timer: 2000
+                                });
+                            }
+                        })
+                } catch (error) {
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'error',
+                        title: 'Erro interno. Contate o suporte.',
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
+                }
+            }
+        });
+    }
+    function deleteUser() {
+        const data = {
+            'id': id
+        };
+        const config = {
+            headers: {
+                Token: cookie.get('Token')
+            }
+        }
+        Swal.fire({
+            title: 'Deseja mesmo apagar sua conta? ',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sim',
+            cancelButtonText: 'Cancelar',
+        }).then((result) => {
+            if (result.value) {
+                try {
+                    api.post('user/deleteUser.php', data, config)
+                        .then(res => {
+                            if (res.status === 200) {
+                                Swal.fire({
+                                    position: 'center',
+                                    icon: 'success',
+                                    title: 'Conta resmovida com sucesso!',
+                                    showConfirmButton: false,
+                                    timer: 2000
+                                });
+                                cookie.remove('Token');
+                                cookie.remove('Id');
+                                cookie.remove('Name');
+                                history.push('/');
 
-        console.log('nome: ', profileName);
-        console.log('email: ', profileEmail);
-        console.log('senha: ', profilePass);
-
-
+                            } else {
+                                Swal.fire({
+                                    position: 'center',
+                                    icon: 'error',
+                                    title: 'Erro ao tentar apagar a conta.',
+                                    showConfirmButton: false,
+                                    timer: 2000
+                                });
+                            }
+                        })
+                } catch (error) {
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'error',
+                        title: 'Erro interno. Contate o suporte.',
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
+                }
+            }
+        });
     }
 
     const toggle = bool => setTooltipOpen({ show: bool });
@@ -347,7 +456,7 @@ export default function Dashboard() {
                             position="bottom center"
                             moveUp="40px">
                             <span onClick={() => Profile(true)}>Perfil</span>
-                            <span onClick={() => logout}>Sair</span>
+                            <span onClick={() => logout()}>Sair</span>
                         </Tooltip>
 
                     </div>
@@ -479,7 +588,7 @@ export default function Dashboard() {
                     </div>
                     <div className="button-crud">
                         {show && <button className="button" onClick={() => setShow(false)} >Editar Dados</button>}
-                        {show && <button className="button"  >Apagar Usuário</button>}
+                        {show && <button className="button" onClick={() => deleteUser()} >Apagar Conta</button>}
                         {!show && <button className="button" onClick={() => updateUser()} >Atualizar</button>}
                         {!show && <button className="button" onClick={() => setShow(true)}>Cancelar</button>}
                     </div>
